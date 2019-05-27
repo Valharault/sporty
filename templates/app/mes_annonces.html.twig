@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app.user.username }}{% endblock %}
+
+{% block body %}
+    <main id="main-container">
+        {% for annonce in app.user.annonces %}
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-6 col-xl-3">
+                        <div class="block text-center">
+                            <div class="block-content block-content-full block-content-sm bg-primary-darker">
+                                <div class="text-white font-w600">{{ annonce.title }}</div>
+                            </div>
+                            <div class="block-content block-content-full block-content-sm bg-body-light">
+                                <div class="font-w600 mb-5">{{ app.user.nom }} {{ app.user.prenom }}</div>
+                                <div class="font-size-sm text-muted">{{ annonce.content|truncate(10) }}</div>
+                            </div>
+                            <div class="block-content block-content-full">
+                                <button type="button" class="btn btn-circle btn-alt-success mr-5 mb-5 js-tooltip-enabled" data-toggle="tooltip" title="" data-original-title="Settings">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                                <button type="button" class="btn btn-circle btn-alt-warning mr-5 mb-5 js-tooltip-enabled" data-toggle="tooltip" title="" data-original-title="Edit">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                                <button type="button" class="btn btn-circle btn-alt-danger mr-5 mb-5 js-tooltip-enabled" data-toggle="tooltip" title="" data-original-title="Profile">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+    </main>
+{% endblock %}
+

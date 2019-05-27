@@ -1,0 +1,215 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app.user.username }}{% endblock %}
+
+{% block body %}
+    <main id="main-container">
+        <div class="bg-image bg-image-bottom" style="background-image: url('{{ asset('assets/img/photo13@2x.jpg') }}');">
+            <div class="bg-primary-dark-op py-30">
+                <div class="content content-full text-center">
+                    <div class="mb-15">
+                            <img class="img-avatar img-avatar96 img-avatar-thumb" src="{{ asset('assets/img/avatars/avatar15.jpg') }}" alt="">
+                    </div>
+                    <h1 class="h3 text-white font-w700 mb-10">{{ user.prenom }} {{ user.nom }}</h1>
+                    <h2 class="h5 text-white-op">
+                        {% if user.details is not null %}
+                        {{ user.details.bio }}
+                        {% endif %}
+                    </h2>
+
+                    {% if user.id != app.user.id %}
+                    <button type="button" class="btn btn-rounded btn-hero btn-sm btn-alt-primary mb-5" data-toggle="modal" data-target="#modal-launch-conv">
+                            <i class="fa fa-envelope-o mr-5"></i> Message
+                    </button>
+
+                    <div class="modal fade" id="modal-launch-conv" tabindex="-1" role="dialog" aria-labelledby="modal-launch-conv" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-popin" role="document">
+                            <div class="modal-content">
+                                {{ form_start(form) }}
+                                <div class="block block-themed block-transparent mb-0">
+                                    <div class="block-header bg-primary-dark">
+                                        <h3 class="block-title">Lancement d'une nouvelle conversation</h3>
+                                        <div class="block-options">
+                                            <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                                <i class="si si-close"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="block-content">
+                                        {{ form_row(form.titre) }}
+                                    </div>
+                                </div>
+                                <div class="modal-footer" style="border-top: 0 solid #eaecee !important;">
+                                    <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Fermer</button>
+                                    <button type="submit" class="btn btn-alt-success">
+                                        <i class="fa fa-check"></i> Démarrer
+                                    </button>
+                                </div>
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Projects -->
+            <h2 class="content-heading">
+                <i class="si si-diamond mr-5"></i> Sport pratiqués
+            </h2>
+            <div class="row items-push text-center">
+                {% for sport in app.user.sports %}
+
+                        <div class="col-md-6 col-xl-4">
+                            <div class="block-content block-content-full">
+                                <h2 class="display-3">{{ sport.nom }}</h2>
+                            </div>
+                        </div>
+
+                {% endfor %}
+            </div>
+
+            <h2 class="content-heading">
+                <i class="si si-calendar mr-5"></i> Disponibilités
+            </h2>
+            {% if user.details is not null %}
+            <div class="row items-push">
+                <div class="col-md-12" style="display: inline-flex;max-width: 60%;">
+                    <div class='col-sm-3 col-xs-6'>
+                        <label>Lundi :</label></br>
+                        {% for d in 8..23 %}
+                            {% set f = d+1 %}
+                            {% if f == 24 %}
+                                {% set f = 0 %}
+                            {% endif %}
+                            {% set plage = user.dispos.lundi|split(' ') %}
+                            <label class='css-control css-control-sm css-control-secondary css-checkbox'>
+                            {% if plage[d-8] == 1 %}
+                                <i class='fa fa-check-circle' style='color:green'></i>
+                            {% elseif plage[d-8] == 0 %}
+                                <i class='fa fa-close' style='color:red'></i>
+                            {% endif %}
+                                <span class='css-control-indicator'></span> {{ d }}h - {{ f }}h
+                            </label></br>
+                        {% endfor %}
+                    </div>
+                    <div class='col-sm-3 col-xs-6'>
+                        <label>Mardi :</label></br>
+                        {% for d in 8..23 %}
+                            {% set f = d+1 %}
+                            {% if f == 24 %}
+                                {% set f = 0 %}
+                            {% endif %}
+                            {% set plage = user.dispos.mardi|split(' ') %}
+                            <label class='css-control css-control-sm css-control-secondary css-checkbox'>
+                                {% if plage[d-8] == 1 %}
+                                    <i class='fa fa-check-circle' style='color:green'></i>
+                                {% elseif plage[d-8] == 0 %}
+                                    <i class='fa fa-close' style='color:red'></i>
+                                {% endif %}
+                                <span class='css-control-indicator'></span> {{ d }}h - {{ f }}h
+                            </label></br>
+                        {% endfor %}
+                    </div>
+                    <div class='col-sm-3 col-xs-6'>
+                        <label>Mercredi :</label></br>
+                        {% for d in 8..23 %}
+                            {% set f = d+1 %}
+                            {% if f == 24 %}
+                                {% set f = 0 %}
+                            {% endif %}
+                            {% set plage = user.dispos.mercredi|split(' ') %}
+                            <label class='css-control css-control-sm css-control-secondary css-checkbox'>
+                                {% if plage[d-8] == 1 %}
+                                    <i class='fa fa-check-circle' style='color:green'></i>
+                                {% elseif plage[d-8] == 0 %}
+                                    <i class='fa fa-close' style='color:red'></i>
+                                {% endif %}
+                                <span class='css-control-indicator'></span> {{ d }}h - {{ f }}h
+                            </label></br>
+                        {% endfor %}
+                    </div>
+                    <div class='col-sm-3 col-xs-6'>
+                        <label>Jeudi :</label></br>
+                        {% for d in 8..23 %}
+                            {% set f = d+1 %}
+                            {% if f == 24 %}
+                                {% set f = 0 %}
+                            {% endif %}
+                            {% set plage = user.dispos.jeudi|split(' ') %}
+                            <label class='css-control css-control-sm css-control-secondary css-checkbox'>
+                                {% if plage[d-8] == 1 %}
+                                    <i class='fa fa-check-circle' style='color:green'></i>
+                                {% elseif plage[d-8] == 0 %}
+                                    <i class='fa fa-close' style='color:red'></i>
+                                {% endif %}
+                                <span class='css-control-indicator'></span> {{ d }}h - {{ f }}h
+                            </label></br>
+                        {% endfor %}
+                    </div>
+                    <div class='col-sm-3 col-xs-6'>
+                        <label>Vendredi :</label></br>
+                        {% for d in 8..23 %}
+                            {% set f = d+1 %}
+                            {% if f == 24 %}
+                                {% set f = 0 %}
+                            {% endif %}
+                            {% set plage = user.dispos.vendredi|split(' ') %}
+                            <label class='css-control css-control-sm css-control-secondary css-checkbox'>
+                                {% if plage[d-8] == 1 %}
+                                    <i class='fa fa-check-circle' style='color:green'></i>
+                                {% elseif plage[d-8] == 0 %}
+                                    <i class='fa fa-close' style='color:red'></i>
+                                {% endif %}
+                                <span class='css-control-indicator'></span> {{ d }}h - {{ f }}h
+                            </label></br>
+                        {% endfor %}
+                    </div>
+                    <div class='col-sm-3 col-xs-6'>
+                        <label>Samedi :</label></br>
+                        {% for d in 8..23 %}
+                            {% set f = d+1 %}
+                            {% if f == 24 %}
+                                {% set f = 0 %}
+                            {% endif %}
+                            {% set plage = user.dispos.samedi|split(' ') %}
+                            <label class='css-control css-control-sm css-control-secondary css-checkbox'>
+                                {% if plage[d-8] == 1 %}
+                                    <i class='fa fa-check-circle' style='color:green'></i>
+                                {% elseif plage[d-8] == 0 %}
+                                    <i class='fa fa-close' style='color:red'></i>
+                                {% endif %}
+                                <span class='css-control-indicator'></span> {{ d }}h - {{ f }}h
+                            </label></br>
+                        {% endfor %}
+                    </div>
+                    <div class='col-sm-3 col-xs-6'>
+                        <label>Dimanche :</label></br>
+                        {% for d in 8..23 %}
+                            {% set f = d+1 %}
+                            {% if f == 24 %}
+                                {% set f = 0 %}
+                            {% endif %}
+                            {% set plage = user.dispos.dimanche|split(' ') %}
+                            <label class='css-control css-control-sm css-control-secondary css-checkbox'>
+                                {% if plage[d-8] == 1 %}
+                                    <i class='fa fa-check-circle' style='color:green'></i>
+                                {% elseif plage[d-8] == 0 %}
+                                    <i class='fa fa-close' style='color:red'></i>
+                                {% endif %}
+                                <span class='css-control-indicator'></span> {{ d }}h - {{ f }}h
+                            </label></br>
+                        {% endfor %}
+                    </div>
+                </div></br></br>
+            </div>
+            {% else %}
+            <h5>Les disponibilités ne sont pas encore disponible chez ce membre</h5>
+            {% endif %}
+        </div>
+    </main>
+{% endblock %}
+

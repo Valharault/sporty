@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app.user.username }}{% endblock %}
+
+{% block body %}
+    <main id="main-container">
+        <div class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="block block-themed">
+                        <div class="block-header bg-info">
+                            <h3 class="block-title">Bienvenue sur Sporty</h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option">
+                                    <i class="si si-wrench"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="block-content">
+                            <p>Vous pouvez <a class="link-fx" href="{{ path('form_user') }}">modifier</a> ou <a href="{{ path('profil', {'id': app.user.id}) }}">visiter</a> votre profil dans l'onglet en haut à droit</p>
+
+                            <p>Faire une recherche grâce au menu à votre gauche</p>
+
+                            <p>Ou encore consulter les messages que d'autre joueurs aurait pu vous envoyez !</p>
+
+
+                            <p>Bonne visite</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+{% endblock %}
+

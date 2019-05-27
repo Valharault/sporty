@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app.user.username }}{% endblock %}
+
+{% block body %}
+    <main id="main-container">
+        <div class="content">
+                    <h2 class="content-heading">
+                        <button type="button" class="btn btn-sm btn-rounded btn-primary d-md-none float-right ml-5" data-toggle="class-toggle" data-target=".js-inbox-nav" data-class="d-none d-md-block">Menu</button>
+                        Boite de réception ({{ conversations|length }})
+                    </h2>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- Message List -->
+                            <div class="block">
+                                <div class="block-header block-header-default">
+                                    <div class="block-title">
+                                        <strong>0-{{ conversations|length }}</strong> sur <strong>{{ conversations|length }} conversation(s)</strong>
+                                    </div>
+                                </div>
+                                <div class="block-content">
+                                    <table class="js-table-checkable table table-hover table-vcenter">
+                                        <tbody>
+                                        {% for conversation in conversations %}
+                                            <tr>
+                                                <td class="text-center" style="width: 40px;">
+                                                </td>
+                                                <td class="d-none d-sm-table-cell font-w600" style="width: 140px;">{{ conversation.userTwo.nom }} {{ conversation.userTwo.prenom }}</td>
+                                                <td>
+                                                    <a class="font-w600" href="{{ path('chat', {'id': conversation.id}) }}">{{ conversation.contenu }}</a>
+                                                </td>
+                                                <td class="d-none d-xl-table-cell font-w600 font-size-sm text-muted" style="width: 120px;">{{ conversation.createAt|date('d-m-Y') }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </main>
+{% endblock %}
+

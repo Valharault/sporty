@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app.user.username }}{% endblock %}
+
+{% block body %}
+    <main id="main-container">
+
+        <div class="content">
+            <div class="block block-themed">
+                <div class="block-header bg-warning">
+                    <h3 class="block-title">Nous avons besoin d'en savoir plus sur vous ...</h3>
+                </div>
+                <div class="block-content">
+                    <div class="col-md-12">
+                        <div class="js-wizard-simple block">
+                            <div class="progress rounded-0" data-wizard="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 30%; height: 8px;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <ul class="nav nav-tabs nav-tabs-alt nav-fill" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="" data-toggle="tab">1. Détails</a>
+                                </li>
+                            </ul>
+                            {{ form_start(form) }}
+                                <div class="block-content block-content-full tab-content" style="min-height: 274px;">
+                                    <div class="tab-pane active" id="wizard-progress2-step1" role="tabpanel">
+                                        <div class="form-group">
+                                            <div class="form-material floating">
+                                                {{ form_widget(form.ville) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-material floating">
+                                                {{ form_widget(form.codepostal) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-material floating">
+                                                {{ form_widget(form.telephone) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-material floating">
+                                                {{ form_widget(form.bio) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="block-content block-content-sm block-content-full bg-body-light">
+                                    <div class="row">
+                                        <div class="col-6">
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <button type="submit" class="btn btn-alt-secondary" data-wizard="finish">
+                                                Suivant <i class="fa fa-angle-right ml-5"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+{% endblock %}
+

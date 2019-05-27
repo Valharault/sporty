@@ -1,0 +1,602 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app.user.username }}{% endblock %}
+
+{% block body %}
+    <main id="main-container">
+        <div class="content">
+            <div class="block block-themed">
+                <div class="block-content">
+                    <div class="col-md-12">
+                        <div class="js-wizard-simple block">
+
+                            <ul class="nav nav-tabs nav-tabs-alt nav-fill" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#wizard-progress2-step1" data-toggle="tab">1. Détails personnels</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#wizard-progress2-step2" data-toggle="tab">2. Détails sportifs</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#wizard-progress2-step3" data-toggle="tab">3. Disponibilités</a>
+                                </li>
+                            </ul>
+
+                            <form method="post">
+
+                                <div class="block-content block-content-full tab-content" style="min-height: 274px;">
+
+                                    <div class="tab-pane active" id="wizard-progress2-step1" role="tabpanel">
+                                        {{ form_start(form_details) }}
+                                        <div class="form-group">
+                                            <div class="form-material floating">
+                                                {{ form_widget(form_details.ville, {'value' : app.user.details.ville }) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-material floating">
+                                                {{ form_widget(form_details.codepostal, {'value' : app.user.details.codepostal}) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-material floating">
+                                                {{ form_widget(form_details.telephone, {'value' : app.user.details.telephone}) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-material floating">
+                                                {{ form_widget(form_details.bio, {'value' : app.user.details.bio}) }}
+                                            </div>
+                                        </div>
+                                        <div class="block-content block-content-sm block-content-full bg-body-light">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <button type="submit" class="btn btn-alt-success" data-wizard="finish">
+                                                        Mettre à jour <i class="fa fa-check-circle ml-5"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{ form_end(form_details) }}
+                                    </div>
+
+                                    <div class="tab-pane" id="wizard-progress2-step2" role="tabpanel">
+                                        {{ form_start(form_sport) }}
+                                        <div class="block">
+                                            <div class="row">
+                                                {% for sport in form_sport.children.nom.children%}
+                                                    <div class="col-md-2 mt-3 mb-3">
+                                                        <div class="custom-control custom-block custom-control-success" data-children-count="1">
+                                                            <input type="checkbox" class="custom-control-input" id="{{ sport.vars.id }}" name="{{ sport.vars.full_name }}" value="{{ sport.vars.name }}">
+                                                            <label class="custom-control-label" for="{{ sport.vars.id }}">
+                                                            <span class="d-block text-center">
+                                                                {{ sport.vars.label }}
+                                                            </span>
+                                                            </label>
+                                                            <span class="custom-block-indicator">
+                                                                <i class="fa fa-check"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="block-content block-content-sm block-content-full bg-body-light">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <button type="submit" class="btn btn-alt-success" data-wizard="finish">
+                                                        Mettre à jour <i class="fa fa-check-circle ml-5"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{ form_widget(form_sport._token) }}
+                                        {{ form_end(form_sport, {'render_rest':false}) }}
+                                    </div>
+
+                                    <div class="tab-pane" id="wizard-progress2-step3" role="tabpanel">
+                                        {{ form_start(form) }}
+                                        <div class="col-md-12" style="display: inline-flex;max-width: 60%;">
+                                            <div class="col-sm-3 col-xs-6">
+                                                <label>Lundi :</label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Lundi8[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 8h - 9h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Lundi9[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 9h - 10h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Lundi10[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 10h - 11h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Lundi11[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 11h - 12h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Lundi12[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 12h - 13h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Lundi13[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 13h - 14h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Lundi14[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 14h - 15h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Lundi15[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 15h - 16h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Lundi16[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 16h - 17h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Lundi17[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 17h - 18h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Lundi18[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 18h - 19h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Lundi19[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 19h - 20h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Lundi20[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 20h - 21h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Lundi21[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 21h - 22h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Lundi22[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 22h - 23h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Lundi23[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 23h - 0h
+                                                </label><br>
+                                            </div>
+                                            <div class="col-sm-3 col-xs-6">
+                                                <label>Mardi :</label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mardi8[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 8h - 9h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mardi9[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 9h - 10h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mardi10[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 10h - 11h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mardi11[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 11h - 12h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mardi12[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 12h - 13h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mardi13[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 13h - 14h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mardi14[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 14h - 15h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mardi15[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 15h - 16h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mardi16[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 16h - 17h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mardi17[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 17h - 18h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mardi18[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 18h - 19h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mardi19[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 19h - 20h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mardi20[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 20h - 21h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mardi21[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 21h - 22h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mardi22[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 22h - 23h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mardi23[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 23h - 0h
+                                                </label><br>
+                                            </div>
+                                            <div class="col-sm-3 col-xs-6">
+                                                <label>Mercredi :</label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mercredi8[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 8h - 9h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mercredi9[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 9h - 10h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mercredi10[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 10h - 11h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mercredi11[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 11h - 12h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mercredi12[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 12h - 13h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mercredi13[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 13h - 14h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mercredi14[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 14h - 15h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mercredi15[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 15h - 16h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mercredi16[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 16h - 17h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mercredi17[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 17h - 18h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mercredi18[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 18h - 19h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mercredi19[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 19h - 20h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mercredi20[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 20h - 21h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mercredi21[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 21h - 22h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mercredi22[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 22h - 23h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Mercredi23[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 23h - 0h
+                                                </label><br>
+                                            </div>
+                                            <div class="col-sm-3 col-xs-6">
+                                                <label>Jeudi :</label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Jeudi8[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 8h - 9h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Jeudi9[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 9h - 10h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Jeudi10[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 10h - 11h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Jeudi11[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 11h - 12h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Jeudi12[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 12h - 13h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Jeudi13[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 13h - 14h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Jeudi14[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 14h - 15h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Jeudi15[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 15h - 16h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Jeudi16[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 16h - 17h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Jeudi17[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 17h - 18h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Jeudi18[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 18h - 19h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Jeudi19[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 19h - 20h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Jeudi20[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 20h - 21h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Jeudi21[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 21h - 22h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Jeudi22[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 22h - 23h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Jeudi23[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 23h - 0h
+                                                </label><br>
+                                            </div>
+                                            <div class="col-sm-3 col-xs-6">
+                                                <label>Vendredi :</label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Vendredi8[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 8h - 9h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Vendredi9[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 9h - 10h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Vendredi10[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 10h - 11h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Vendredi11[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 11h - 12h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Vendredi12[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 12h - 13h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Vendredi13[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 13h - 14h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Vendredi14[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 14h - 15h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Vendredi15[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 15h - 16h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Vendredi16[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 16h - 17h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Vendredi17[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 17h - 18h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Vendredi18[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 18h - 19h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Vendredi19[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 19h - 20h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Vendredi20[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 20h - 21h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Vendredi21[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 21h - 22h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Vendredi22[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 22h - 23h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Vendredi23[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 23h - 0h
+                                                </label><br>
+                                            </div>
+                                            <div class="col-sm-3 col-xs-6">
+                                                <label>Samedi :</label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Samedi8[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 8h - 9h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Samedi9[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 9h - 10h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Samedi10[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 10h - 11h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Samedi11[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 11h - 12h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Samedi12[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 12h - 13h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Samedi13[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 13h - 14h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Samedi14[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 14h - 15h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Samedi15[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 15h - 16h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Samedi16[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 16h - 17h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Samedi17[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 17h - 18h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Samedi18[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 18h - 19h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Samedi19[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 19h - 20h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Samedi20[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 20h - 21h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Samedi21[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 21h - 22h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Samedi22[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 22h - 23h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Samedi23[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 23h - 0h
+                                                </label><br>
+                                            </div>
+                                            <div class="col-sm-3 col-xs-6">
+                                                <label>Dimanche :</label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Dimanche8[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 8h - 9h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Dimanche9[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 9h - 10h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Dimanche10[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 10h - 11h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Dimanche11[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 11h - 12h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Dimanche12[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 12h - 13h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Dimanche13[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 13h - 14h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Dimanche14[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 14h - 15h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Dimanche15[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 15h - 16h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Dimanche16[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 16h - 17h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Dimanche17[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 17h - 18h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Dimanche18[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 18h - 19h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Dimanche19[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 19h - 20h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Dimanche20[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 20h - 21h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Dimanche21[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 21h - 22h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Dimanche22[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 22h - 23h
+                                                </label><br>
+                                                <label class="css-control css-control-sm css-control-secondary css-checkbox">
+                                                    {{ form_widget(form.Dimanche23[0], { 'attr' : { 'class' : 'css-control-input' } }) }}
+                                                    <span class="css-control-indicator"></span> 23h - 0h
+                                                </label><br>
+                                            </div>
+                                        </div></br></br>
+                                        <div class="block-content block-content-sm block-content-full bg-body-light">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <button type="submit" class="btn btn-alt-success" data-wizard="finish">
+                                                        Mettre à jour <i class="fa fa-check-circle ml-5"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{ form_end(form) }}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </main>
+{% endblock %}
+

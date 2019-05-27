@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app.user.username }}{% endblock %}
+
+{% block body %}
+    <main id="main-container">
+        <div class="content">
+            <div class="block-content">
+                {{ form_start(form) }}
+                <div class="form-group row">
+                    <div class="col-md-9">
+                        <div class="form-material">
+                            {{ form_label(form.departement) }}
+                            {{ form_widget(form.departement)}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-9">
+                        <div class="form-material">
+                            {{ form_widget(form.sports) }}
+                            {{ form_label(form.sports) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-9">
+                    <button type="submit" class="btn btn-alt-primary">Rechercher</button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </main>
+{% endblock %}
+
