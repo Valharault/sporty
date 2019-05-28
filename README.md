@@ -10,7 +10,7 @@ Symfony 3.2
 
 ## Démo
 ```
-dev-val.fr
+[Sporty](dev-val.fr)
 ```
 
 ### Fonctionnement
