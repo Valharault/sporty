@@ -10,7 +10,7 @@ Symfony 3.2
 
 ## Démo
 
-[Sporty](https://dev-val.fr)
+Tester sur [Sporty](https://sporty.dev-val.fr)
 
 
 ### Fonctionnement
