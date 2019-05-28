@@ -8,6 +8,11 @@ Plateforme de rencontre sportive
 Symfony 3.2
 ```
 
+## Démo
+```
+dev-val.fr
+```
+
 ### Fonctionnement
 
 Comporte :
