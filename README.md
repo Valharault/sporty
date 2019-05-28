@@ -9,9 +9,9 @@ Symfony 3.2
 ```
 
 ## Démo
-```
+
 [Sporty](https://dev-val.fr)
-```
+
 
 ### Fonctionnement
 
