@@ -8,11 +8,6 @@ Plateforme de rencontre sportive
 Symfony 3.2
 ```
 
-## Démo
-
-Tester sur [Sporty](https://sporty.dev-val.fr)
-
-
 ### Fonctionnement
 
 Comporte :
